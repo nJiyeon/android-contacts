@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,20 +36,13 @@ class AppContactActivity : AppCompatActivity() {
         val btnCancel = findViewById<TextView>(R.id.btn_cancel)
         val btnSave = findViewById<TextView>(R.id.btn_save)
 
-        // EditText 클릭 시에만 키보드를 표시
-        setupEditTextFocus(etName)
-        setupEditTextFocus(etPhone)
-        setupEditTextFocus(etEmail)
-        setupEditTextFocus(etNotes)
-
-        // 생일 입력을 위한 DatePickerDialog 설정
         etBirthdate.setOnClickListener {
             showDatePickerDialog(etBirthdate)
         }
 
         btnMore.setOnClickListener {
-            moreForm.visibility = LinearLayout.VISIBLE
-            btnMore.visibility = View.GONE
+            moreForm.isVisible = true
+            btnMore.isVisible = false
         }
 
         btnCancel.setOnClickListener {
@@ -111,26 +105,6 @@ class AppContactActivity : AppCompatActivity() {
         alert.show()
     }
 
-    private fun setupEditTextFocus(editText: EditText) {
-        editText.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                showKeyboard(v)
-            } else {
-                hideKeyboard(v)
-            }
-        }
-    }
-
-    private fun showKeyboard(view: View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
     private fun showDatePickerDialog(editText: EditText) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -152,4 +126,3 @@ class AppContactActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 }
-
