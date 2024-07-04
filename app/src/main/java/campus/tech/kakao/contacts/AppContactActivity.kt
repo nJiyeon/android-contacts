@@ -34,7 +34,7 @@ class AppContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.activity_app_contact)
 
         etName = findViewById(R.id.et_name)
         etPhone = findViewById(R.id.et_phone)
