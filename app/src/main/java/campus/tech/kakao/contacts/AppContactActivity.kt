@@ -14,13 +14,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AppContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_contact)
+        setContentView(R.layout.activity_second)
 
         val etName = findViewById<EditText>(R.id.et_name)
         val etPhone = findViewById<EditText>(R.id.et_phone)
@@ -34,11 +35,13 @@ class AppContactActivity : AppCompatActivity() {
         val btnCancel = findViewById<TextView>(R.id.btn_cancel)
         val btnSave = findViewById<TextView>(R.id.btn_save)
 
+        // EditText 클릭 시에만 키보드를 표시
         setupEditTextFocus(etName)
         setupEditTextFocus(etPhone)
         setupEditTextFocus(etEmail)
         setupEditTextFocus(etNotes)
 
+        // 생일 입력을 위한 DatePickerDialog 설정
         etBirthdate.setOnClickListener {
             showDatePickerDialog(etBirthdate)
         }
@@ -49,18 +52,12 @@ class AppContactActivity : AppCompatActivity() {
         }
 
         btnCancel.setOnClickListener {
-            moreForm.visibility = LinearLayout.GONE
-            btnMore.visibility = View.VISIBLE
             Toast.makeText(this, "취소 되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         btnSave.setOnClickListener {
             val name = etName.text.toString()
             val phone = etPhone.text.toString()
-            val email = etEmail.text.toString()
-            val birthdate = etBirthdate.text.toString()
-            val gender = if (rbFemale.isChecked) "여성" else if (rbMale.isChecked) "남성" else ""
-            val notes = etNotes.text.toString()
 
             if (name.isEmpty()) {
                 Toast.makeText(this, "이름은 필수 값입니다.", Toast.LENGTH_SHORT).show()
@@ -74,6 +71,11 @@ class AppContactActivity : AppCompatActivity() {
                 Toast.makeText(this, "전화번호는 숫자만 입력 가능합니다", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            val email = etEmail.text.toString()
+            val birthdate = etBirthdate.text.toString()
+            val gender = if (rbFemale.isChecked) "여성" else if (rbMale.isChecked) "남성" else ""
+            val notes = etNotes.text.toString()
 
             val intent = Intent().apply {
                 putExtra("name", name)
@@ -138,8 +140,10 @@ class AppContactActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                val formattedDate = "${selectedYear}-${String.format("%02d", selectedMonth + 1)}-${String.format("%02d", selectedDay)}"
-                editText.setText(formattedDate)
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                editText.setText(dateFormat.format(selectedDate.time))
             },
             year,
             month,
