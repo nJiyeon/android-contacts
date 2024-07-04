@@ -2,11 +2,8 @@ package campus.tech.kakao.contacts
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -109,12 +106,12 @@ class AppContactActivity : AppCompatActivity() {
 
     private fun isFormFilled(): Boolean {
         return etName.text.isNotEmpty() ||
-               etPhone.text.isNotEmpty() ||
-               etEmail.text.isNotEmpty() ||
-               etBirthdate.text.isNotEmpty() ||
-               rbFemale.isChecked ||
-               rbMale.isChecked ||
-               etNotes.text.isNotEmpty()
+                etPhone.text.isNotEmpty() ||
+                etEmail.text.isNotEmpty() ||
+                etBirthdate.text.isNotEmpty() ||
+                rbFemale.isChecked ||
+                rbMale.isChecked ||
+                etNotes.text.isNotEmpty()
     }
 
     private fun showExitConfirmationDialog() {
