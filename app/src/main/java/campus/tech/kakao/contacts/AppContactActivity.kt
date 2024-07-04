@@ -16,11 +16,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
-class SecondActivity : AppCompatActivity() {
+class AppContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.activity_add_contact)
 
         val etName = findViewById<EditText>(R.id.et_name)
         val etPhone = findViewById<EditText>(R.id.et_phone)
@@ -34,13 +34,11 @@ class SecondActivity : AppCompatActivity() {
         val btnCancel = findViewById<TextView>(R.id.btn_cancel)
         val btnSave = findViewById<TextView>(R.id.btn_save)
 
-        // EditText 클릭 시에만 키보드를 표시
         setupEditTextFocus(etName)
         setupEditTextFocus(etPhone)
         setupEditTextFocus(etEmail)
         setupEditTextFocus(etNotes)
 
-        // 생일 입력을 위한 DatePickerDialog 설정
         etBirthdate.setOnClickListener {
             showDatePickerDialog(etBirthdate)
         }
@@ -90,7 +88,6 @@ class SecondActivity : AppCompatActivity() {
             finish()
         }
 
-        // Back 버튼 콜백
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 showExitConfirmationDialog()
@@ -151,3 +148,4 @@ class SecondActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 }
+
